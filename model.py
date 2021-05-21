@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import statistics
 import torchvision.models as models
 from dataset import *
 

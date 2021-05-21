@@ -1,4 +1,5 @@
 model_save_path = './weights/model.pth'
+save_log = "./weights/log.csv"
 img_folder = './data/flickr8k/images'
 caption_path = './data/flickr8k/captions.txt'
 data = './data/data.json'

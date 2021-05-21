@@ -47,7 +47,6 @@ class Vocab:
 		self.itos = {0: "<PAD>", 1: "<SOS>", 2: "<EOS>", 3: "<UNK>"}
 		self.stoi = {"<PAD>": 0, "<SOS>": 1, "<EOS>": 2, "<UNK>": 3}
 
-
 	def get_vocab(self):
 		vocab = []
 		word2fre ={}
