@@ -69,7 +69,7 @@ class Vocab:
 
 
 def tokenizer_eng(text):
-	return [tok.text.lower() for tok in config.spacy_eng.tokenizer(text)]
+	return [tok.text.lower() for tok in spacy_eng.tokenizer(text)]
 
 
 def numericalize(text,stoi):

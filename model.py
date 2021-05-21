@@ -60,10 +60,10 @@ class CNNtoRNN(nn.Module):
                 result_caption.append(predicted.item())
                 x = self.decoderRNN.embed(predicted).unsqueeze(0)
 
-                if itos[predicted.item()] == "<EOS>":
+                if itos[str(predicted.item())] == "<EOS>":
                     break
 
-        return  [itos[idx] for idx in result_caption]
+        return  [itos[str(idx)] for idx in result_caption if idx not in (0,1,2,3)]
 
 
 

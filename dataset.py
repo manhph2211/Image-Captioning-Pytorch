@@ -7,7 +7,7 @@ from PIL import Image
 import torch
 
 
-class Dataset(Dataset):
+class IMDataset(Dataset):
     def __init__(self, img_names, captions, transform=None):
         
         self.img_names = img_names
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     )
     img_names, captions = make_data()
 
-    dataset = Dataset(img_names, captions, transform=transform)
+    dataset = IMDataset(img_names, captions, transform=transform)
 
     pad_idx = dataset.stoi["<PAD>"]
 
