@@ -5,8 +5,9 @@ import glob
 import os 
 import config
 import json 
-import spacy  # for tokenizer
 from sklearn import model_selection
+import spacy  # for tokenizer
+spacy_eng = spacy.load("en_core_web_sm")
 
 
 def make_data(txt_path = config.caption_path):
@@ -68,8 +69,7 @@ class Vocab:
 
 
 def tokenizer_eng(text):
-	spacy_eng = spacy.load("en_core_web_sm")
-	return [tok.text.lower() for tok in spacy_eng.tokenizer(text)]
+	return [tok.text.lower() for tok in config.spacy_eng.tokenizer(text)]
 
 
 def numericalize(text,stoi):
@@ -84,6 +84,7 @@ def numericalize(text,stoi):
 if __name__ == '__main__':
 	# img_paths = glob.glob(os.path.join(config.img_folder,'*.jpg'))
 	# print(len(img_paths))  # 8091 images
+	spacy_eng = config.spacy_eng
 	img_names,captions = make_data()
 	img_names_train,captions_train,img_names_val,captions_val,img_names_test,captions_test = split_data(img_names,captions)
 	vocab = Vocab(captions_train,config.freq_threshold)
@@ -91,5 +92,5 @@ if __name__ == '__main__':
 	write_json(vocab.itos,config.itos)
 	write_json(vocab.stoi,config.stoi)
 	print(vocab.max_length) # 42
-	print(vocab.numericalize('girl')) #[24]
+	print(numericalize('girl',vocab.stoi)) #[24]
 

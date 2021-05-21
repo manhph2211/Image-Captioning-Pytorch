@@ -1,3 +1,5 @@
+import torch
+
 model_save_path = './weights/model.pth'
 save_log = "./weights/log.csv"
 img_folder = './data/flickr8k/images'
@@ -9,8 +11,6 @@ freq_threshold = 5
 batch_size = 8
 num_workers = 4
 
-
-import torch
 torch.backends.cudnn.benchmark = True
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 load_model = False

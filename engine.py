@@ -1,13 +1,12 @@
-import torch
 import config
-import tqdm
+from tqdm import tqdm
 
 
 def train_fn(model, data_loader,criterion,optimizer):
     model.train()
     device = config.device
     epoch_loss = 0
-    for idx, (imgs, captions) in tqdm(enumerate(data_loader)):
+    for imgs, captions in tqdm(data_loader):
         imgs = imgs.to(device)
         captions = captions.to(device)
         outputs = model(imgs, captions[:-1])
@@ -21,11 +20,11 @@ def train_fn(model, data_loader,criterion,optimizer):
     return epoch_loss
 
 
-def eval_fn(model, data_loader,criterion):
+def val_fn(model, data_loader,criterion):
     model.eval()
     device = config.device
     epoch_loss = 0
-    for idx, (imgs, captions) in tqdm(enumerate(data_loader)):
+    for imgs, captions in tqdm(data_loader):
         imgs = imgs.to(device)
         captions = captions.to(device)
         outputs = model(imgs, captions[:-1])
