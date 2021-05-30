@@ -2,11 +2,11 @@ import torch
 
 model_save_path = './weights/model.pth'
 save_log = "./weights/log.csv"
-img_folder = './data/flickr8k/images'
-caption_path = './data/flickr8k/captions.txt'
-data = './data/data.json'
-itos = './data/itos.json'
-stoi = './data/stoi.json'
+img_folder = '../data/flickr8k/images'
+caption_path = '../data/flickr8k/captions.txt'
+data = '../data/data.json'
+itos = '../data/itos.json'
+stoi = '../data/stoi.json'
 freq_threshold = 5
 batch_size = 8
 num_workers = 4

@@ -84,7 +84,6 @@ def numericalize(text,stoi):
 if __name__ == '__main__':
 	# img_paths = glob.glob(os.path.join(config.img_folder,'*.jpg'))
 	# print(len(img_paths))  # 8091 images
-	spacy_eng = config.spacy_eng
 	img_names,captions = make_data()
 	img_names_train,captions_train,img_names_val,captions_val,img_names_test,captions_test = split_data(img_names,captions)
 	vocab = Vocab(captions_train,config.freq_threshold)

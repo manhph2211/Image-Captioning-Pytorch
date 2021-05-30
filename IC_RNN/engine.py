@@ -14,7 +14,7 @@ def train_fn(model, data_loader,criterion,optimizer):
             outputs.reshape(-1, outputs.shape[2]), captions.reshape(-1)
         )
         optimizer.zero_grad()
-        loss.backward(loss)
+        loss.backward()
         epoch_loss+=loss.item()
         optimizer.step()
     return epoch_loss
