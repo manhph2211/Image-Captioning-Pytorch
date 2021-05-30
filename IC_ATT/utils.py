@@ -4,6 +4,7 @@ import config
 import json
 from sklearn import model_selection
 import spacy  # for tokenizer
+import torch
 spacy_eng = spacy.load("en_core_web_sm")
 
 

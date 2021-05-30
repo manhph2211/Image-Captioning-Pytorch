@@ -54,6 +54,7 @@ def train(train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_
         decoder_optimizer.step()
         if encoder_optimizer is not None:
             encoder_optimizer.step()
+    return losses
 
 
 def validate(val_loader, encoder, decoder, criterion):
