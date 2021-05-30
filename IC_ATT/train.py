@@ -1,5 +1,5 @@
 from utils import *
-from dataset import MyCollate, IMDataset
+from dataset import IMDataset
 from model import *
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -16,8 +16,8 @@ if __name__ == "__main__":
 
     transform = transforms.Compose(
         [
-            transforms.Resize((356, 356)),
-            transforms.RandomCrop((299, 299)),
+            #transforms.Resize((356, 356)),
+            #transforms.RandomCrop((299, 299)),
             normalize,
         ]
     )
@@ -28,8 +28,8 @@ if __name__ == "__main__":
     train_loader = DataLoader(
         dataset=train_dataset,
         batch_size=config.batch_size,
-        num_workers=config.num_workers,
-        collate_fn=MyCollate(pad_idx=pad_idx),
+        num_workers=config.num_workers
+        #collate_fn=MyCollate(pad_idx=pad_idx),
     )
 
     val_dataset = IMDataset(img_names_val, captions_val, transform=transform)
@@ -37,8 +37,8 @@ if __name__ == "__main__":
     val_loader = DataLoader(
         dataset=val_dataset,
         batch_size=config.batch_size,
-        num_workers=config.num_workers,
-        collate_fn=MyCollate(pad_idx=pad_idx),
+        num_workers=config.num_workers
+        #collate_fn=MyCollate(pad_idx=pad_idx),
     )
 
     test_dataset = IMDataset(img_names_test, captions_test, transform=transform)
@@ -46,8 +46,8 @@ if __name__ == "__main__":
     test_loader = DataLoader(
         dataset=test_dataset,
         batch_size=config.batch_size,
-        num_workers=config.num_workers,
-        collate_fn=MyCollate(pad_idx=pad_idx),
+        num_workers=config.num_workers
+        #collate_fn=MyCollate(pad_idx=pad_idx),
     )
 
 

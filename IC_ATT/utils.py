@@ -78,7 +78,6 @@ def numericalize(text,stoi):
     ]
 
 
-
 def clip_gradient(optimizer, grad_clip):
     """
     Clips gradients computed during backpropagation to avoid explosion of gradients.
@@ -104,15 +103,15 @@ def save_checkpoint(epoch, encoder, decoder, encoder_optimizer, decoder_optimize
     torch.save(state, filename)
    
 
-
-
 # img_paths = glob.glob(os.path.join(config.img_folder,'*.jpg'))
 # print(len(img_paths))  # 8091 images
 img_names,captions = make_data()
 img_names_train,captions_train,img_names_val,captions_val,img_names_test,captions_test = split_data(img_names,captions)
-vocab = Vocab(captions_train,config.freq_threshold)
-vocab.get_vocab()
+# vocab = Vocab(captions_train,config.freq_threshold)
+# vocab.get_vocab()
 # write_json(vocab.itos,config.itos)
 # write_json(vocab.stoi,config.stoi)
-# print(vocab.max_length) # 42
-# print(numericalize('girl',vocab.stoi)) #[24]
+# print(vocab.max_length) # 42s
+stoi = read_json(config.stoi)
+#print(len(stoi))
+#print(numericalize(' hello girl',stoi)) #[3, 2498 , 24]

@@ -15,10 +15,10 @@ def train(train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_
     for imgs, caps, caplens in tqdm(train_loader):
 
         # Move to GPU, if available
+      
         imgs = imgs.to(device)
         caps = caps.to(device)
         caplens = caplens.to(device)
-
         # Forward prop.
         imgs = encoder(imgs)
         scores, caps_sorted, decode_lengths, alphas, sort_ind = decoder(imgs, caps, caplens)
@@ -28,15 +28,15 @@ def train(train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_
 
         # Remove timesteps that we didn't decode at, or are pads
         # pack_padded_sequence is an easy trick to do this
-        scores, _ = pack_padded_sequence(scores, decode_lengths, batch_first=True)
-        targets, _ = pack_padded_sequence(targets, decode_lengths, batch_first=True)
-
+        scores = pack_padded_sequence(scores, decode_lengths, batch_first=True)
+        targets = pack_padded_sequence(targets, decode_lengths, batch_first=True)
         # Calculate loss
-        loss = criterion(scores, targets)
+        loss = criterion(scores.data, targets.data)
 
         # Add doubly stochastic attention regularization
         loss += config.alpha_c * ((1. - alphas.sum(dim=1)) ** 2).mean()
         losses += loss.item()
+        #print(loss.item())
         # Back prop.
         decoder_optimizer.zero_grad()
         if encoder_optimizer is not None:
@@ -85,11 +85,11 @@ def validate(val_loader, encoder, decoder, criterion):
             # Remove timesteps that we didn't decode at, or are pads
             # pack_padded_sequence is an easy trick to do this
             scores_copy = scores.clone()
-            scores, _ = pack_padded_sequence(scores, decode_lengths, batch_first=True)
-            targets, _ = pack_padded_sequence(targets, decode_lengths, batch_first=True)
+            scores = pack_padded_sequence(scores, decode_lengths, batch_first=True)
+            targets = pack_padded_sequence(targets, decode_lengths, batch_first=True)
 
             # Calculate loss
-            loss = criterion(scores, targets)
+            loss = criterion(scores.data, targets.data)
 
             # Add doubly stochastic attention regularization
             loss += config.alpha_c * ((1. - alphas.sum(dim=1)) ** 2).mean()
