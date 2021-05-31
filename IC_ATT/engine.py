@@ -12,7 +12,7 @@ def train(train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_
     losses = 0
     device = config.device
     # Batches
-    for imgs, caps, caplens in tqdm(train_loader):
+    for imgs, caps, caplens,_ in tqdm(train_loader):
 
         # Move to GPU, if available
       
@@ -68,7 +68,7 @@ def validate(val_loader, encoder, decoder, criterion):
     # explicitly disable gradient calculation to avoid CUDA memory error
     with torch.no_grad():
         # Batches
-        for imgs, caps, caplens in tqdm(val_loader):
+        for imgs, caps, caplens,_ in tqdm(val_loader):
 
             # Move to device, if available
             imgs = imgs.to(device)

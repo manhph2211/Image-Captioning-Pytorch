@@ -1,4 +1,3 @@
-from torch.nn.utils.rnn import pad_sequence  # pad batch
 from torch.utils.data import DataLoader, Dataset
 import torchvision.transforms as transforms
 from utils import *
@@ -37,21 +36,7 @@ class IMDataset(Dataset):
             img = self.transform(img)
         enc = self.encode(caption)
         caplen = self.c_len + 2
-        return img, torch.LongTensor(enc),torch.LongTensor([caplen])
-
-
-# class MyCollate:
-#     def __init__(self, pad_idx):
-#         self.pad_idx = pad_idx
-
-#     def __call__(self, batch):
-#         imgs = [item[0] for item in batch]
-#         imgs = torch.stack(imgs, dim=0)
-#         caplens = [item[2] for item in batch]
-#         caplens = torch.LongTensor(caplens)
-#         targets = [item[1] for item in batch]
-#         targets = pad_sequence(targets, batch_first=False, padding_value=self.pad_idx)
-#         return imgs, targets, caplens
+        return img, torch.LongTensor(enc),torch.LongTensor([caplen]),img_name
 
 
 if __name__ == "__main__":
@@ -68,7 +53,6 @@ if __name__ == "__main__":
         dataset=dataset,
         batch_size=config.batch_size,
         num_workers=config.num_workers,
-        #collate_fn=MyCollate(pad_idx=pad_idx),
     )
 
     # for idx, (imgs, captions,_) in enumerate(loader):
